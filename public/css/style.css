@@ -1,0 +1,21 @@
+body {
+  font-family: 'Lato', Helvetica, sans-serif;
+}
+
+iframe {
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  visibility: hidden;
+}
+
+#container {
+  margin-top: 100px;
+  width: 85%;
+}
+
+#now-playing {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+}
