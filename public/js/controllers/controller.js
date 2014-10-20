@@ -19,6 +19,7 @@ var controller = (function() {
     $('#main').on('click', 'button#search-button', searchYT);
     $('#main').on('click', 'button.select-button', addToPlaylist);
     $('#main').on('click', 'button.play-track', playTrack);
+    $('#main').on('click', 'button.delete-track', deleteTrack);
 
     loadPlaylist();
   }
@@ -62,6 +63,11 @@ var controller = (function() {
     });
   }
 
+  function deleteTrack() {
+    $(this).parent().remove();
+    controller.updatePlaylistOrder();
+  }
+
   function updatePlaylistOrder() {
     controller.playlist = [];
 
@@ -85,8 +91,8 @@ var controller = (function() {
   }
 
   function playTrack() {
-    var type = $(this).prev('span').attr('data-type');
-    var trackid = $(this).prev('span').attr('data-url');
+    var type = $(this).siblings('span').attr('data-type');
+    var trackid = $(this).siblings('span').attr('data-url');
 
     if (type == 'yt') {
       scplayer.pause();
@@ -97,8 +103,7 @@ var controller = (function() {
       scplayer.load(base + trackid, { auto_play: true });
     }
 
-    controller.playing = parseInt($(this).prev('span').attr('id'));
-    debugger;
+    controller.playing = parseInt($(this).siblings('span').attr('id'));
     $('#now-playing-title').text(controller.playlist[controller.playing].title);
   }
 

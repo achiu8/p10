@@ -5,7 +5,9 @@ end
 post '/save' do
   Playlist.destroy_all
   Track.destroy_all
+
   playlist = Playlist.create
+
   params.each do |_, track|
     playlist.tracks.create(
       title: track["title"],

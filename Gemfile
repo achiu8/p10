@@ -21,6 +21,7 @@ gem 'bcrypt'
 group :test do
   gem 'shoulda-matchers'
   gem 'rack-test'
+  gem 'debugger'
 end
 
 group :test, :development do
