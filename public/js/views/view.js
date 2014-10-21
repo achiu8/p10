@@ -65,12 +65,20 @@ var view = (function() {
 
     var output = template(data);
     $('#results').html(output);
+    
+    $('#results li').draggable({
+      connectToSortable: '#playlist',
+      helper: 'clone',
+      revert: 'invalid',
+      cursor: 'move'
+    });
   }
 
   function showPlaylist() {
     $('#playlist-panel').html('<ul id="playlist" class="list-group"></ul>');
     $('#playlist').sortable({
-      update: controller.updatePlaylistOrder
+      update: controller.updatePlaylistOrder,
+      revert: true
     });
 
     var template = Handlebars.compile(Templates.playlist);

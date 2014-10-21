@@ -50,14 +50,14 @@ iframe {
   font-size: 1.25em;
 }
 
-.delete-track {
-  margin-left: 5px;
-}
-
 #play-button {
   display: none;
 }
 
 #play-button, #pause-button, #prev-button, #next-button, #shuffle-button {
   width: 38px;
+}
+
+.delete-track {
+  margin-left: 5px;
 }

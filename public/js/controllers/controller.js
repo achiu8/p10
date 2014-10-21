@@ -84,7 +84,7 @@ var controller = (function() {
     });
 
     if (type == 'yt') {
-      controller.setDurationYT(url);
+      controller.setDurationYT(url, id);
     }
 
     var template = Handlebars.compile(Templates.playlistTrack);
@@ -100,7 +100,7 @@ var controller = (function() {
     $('#playlist').append(output);
   }
 
-  function setDurationYT(url) {
+  function setDurationYT(url, id) {
     var request = gapi.client.youtube.videos.list({
       id: url,
       part: 'contentDetails',
@@ -111,7 +111,7 @@ var controller = (function() {
       var raw_duration = response.items[0].contentDetails.duration;
       var dur_arr = raw_duration.replace(/[A-Z]/g, ' ').trim().split(' ');
       var duration = parseInt(dur_arr[0]) * 60 + parseInt(dur_arr[1]);
-      controller.playlist[controller.playlist.length - 1].duration = duration;
+      controller.playlist[id].duration = duration;
     });
   }
 
@@ -125,18 +125,23 @@ var controller = (function() {
 
     for (var i = 0; i < $('#playlist').children().length; i++) {
       var track = $($('#playlist').children()[i]).find('span');
-      $(track).attr('id', controller.playlist.length);
+      var id = controller.playlist.length;
+      $(track).attr('id', id);
 
       controller.playlist.push({
-        id: controller.playlist.length,
+        id: id,
         title: $(track).text(),
-        duration: $(track).attr('data-duration'),
+        duration: parseInt($(track).attr('data-duration')),
         url: $(track).attr('data-url'),
         type: $(track).attr('data-type')
       });
 
       if ($('#now-playing-title').text() == $(track).text()) {
         controller.playing = $(track).attr('id');
+      }
+
+      if (isNaN(controller.playlist[id].duration)) {
+        controller.setDurationYT(controller.playlist[id].url, id);
       }
     }
 
