@@ -17,6 +17,7 @@ var view = (function() {
     for (var i = 0; i < results.length; i++) {
       ytResults.push({
         title: results[i].snippet.title,
+        duration: null,
         url: results[i].id.videoId,
         type: "yt"
       });
@@ -30,6 +31,7 @@ var view = (function() {
     for (var i = 0; i < results.length; i++) {
       scResults.push({
         title: results[i].title,
+        duration: Math.floor(results[i].duration / 1000),
         url: results[i].id,
         type: "sc"
       });
@@ -55,6 +57,7 @@ var view = (function() {
     for (var i = 0; i < results.length; i++) {
       data.tracks.push({
         title: results[i].title,
+        duration: results[i].duration,
         url: results[i].url,
         type: results[i].type
       });
@@ -78,6 +81,7 @@ var view = (function() {
       data.tracks.push({
         id: track.id,
         title: track.title,
+        duration: track.duration,
         url: track.url,
         type: track.type
       });

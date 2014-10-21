@@ -16,7 +16,7 @@ Templates.startPage = [
 Templates.results = [
   '{{#tracks}}',
     '<li class="list-group-item">',
-      '<span data-url="{{url}}" data-type="{{type}}">{{title}}</span>',
+      '<span data-url="{{url}}" data-type="{{type}}" data-duration="{{duration}}">{{title}}</span>',
       '<button class="select-button btn btn-primary btn-xs pull-right">Select</button>',
     '</li>',
   '{{/tracks}}',
@@ -25,7 +25,7 @@ Templates.results = [
 Templates.playlist = [
   '{{#tracks}}',
     '<li class="list-group-item">',
-      '<span id="{{id}}" data-url="{{url}}" data-type="{{type}}">{{title}}</span>',
+      '<span id="{{id}}" data-url="{{url}}" data-type="{{type}}" data-duration="{{duration}}">{{title}}</span>',
       '<button class="delete-track btn btn-danger btn-xs pull-right">Delete</button>',
       '<button class="play-track btn btn-primary btn-xs pull-right">Play</button>',
     '</li>',
@@ -34,7 +34,7 @@ Templates.playlist = [
 
 Templates.playlistTrack = [
   '<li class="list-group-item">',
-    '<span id="{{id}}" data-url="{{url}}" data-type="{{type}}">{{title}}</span>',
+    '<span id="{{id}}" data-url="{{url}}" data-type="{{type}}" data-duration="{{duration}}">{{title}}</span>',
     '<button class="delete-track btn btn-danger btn-xs pull-right">Delete</button>',
     '<button class="play-track btn btn-primary btn-xs pull-right">Play</button>',
   '</li>',

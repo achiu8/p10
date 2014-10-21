@@ -3,6 +3,7 @@ var controller = (function() {
   var playing = null;
   var shuffle = 'off';
   var lastSearch = null;
+  var timer;
 
   function init() {
     gapi.client.setApiKey('AIzaSyC5E8n9OrqLgRyoSpfrSdC7VROJiIzeZ2M');
@@ -50,14 +51,9 @@ var controller = (function() {
       fields: 'items(id,snippet(title))'
     });
 
-    request.execute(processResponse);
-  }
-
-  function processResponse(response) {
-    var responseString = JSON.stringify(response.result);
-    var results = jQuery.parseJSON(responseString).items;
-
-    view.processYTResults(results);
+    request.execute(function(response) {
+      view.processYTResults(response.items);
+    });
   }
 
   function searchSC() {
@@ -70,25 +66,49 @@ var controller = (function() {
   function addToPlaylist() {
     var id = controller.playlist.length;
     var title = $(this).prev('span').text();
+    var duration = $(this).prev('span').attr('data-duration');
     var url = $(this).prev('span').attr('data-url');
     var type = $(this).prev('span').attr('data-type');
+
+
     controller.playlist.push({
       id: id,
       title: title,
+      duration: parseInt(duration),
       url: url,
       type: type
     });
+
+    if (type == 'yt') {
+      controller.setDurationYT(url);
+    }
 
     var template = Handlebars.compile(Templates.playlistTrack);
     var data = {};
 
     data.id = id;
     data.title = title;
+    data.duration = controller.playlist[controller.playlist.length - 1].duration;
     data.url = url;
     data.type = type;
 
     var output = template(data);
     $('#playlist').append(output);
+  }
+
+  function setDurationYT(url) {
+    var request = gapi.client.youtube.videos.list({
+      id: url,
+      part: 'contentDetails',
+      fields: 'items(contentDetails)'
+    });
+
+    request.execute(function(response) {
+      var raw_duration = response.items[0].contentDetails.duration;
+      var dur_arr = raw_duration.replace(/[A-Z]/g, ' ').trim().split(' ');
+      var duration = parseInt(dur_arr[0]) * 60 + parseInt(dur_arr[1]);
+      controller.playlist[controller.playlist.length - 1].duration = duration;
+    });
   }
 
   function deleteTrack() {
@@ -106,6 +126,7 @@ var controller = (function() {
       controller.playlist.push({
         id: controller.playlist.length,
         title: $(track).text(),
+        duration: $(track).attr('data-duration'),
         url: $(track).attr('data-url'),
         type: $(track).attr('data-type')
       });
@@ -144,6 +165,14 @@ var controller = (function() {
 
     controller.playing = parseInt($(this).siblings('span').attr('id'));
     $('#now-playing-title').text(controller.playlist[controller.playing].title);
+
+    $('#play-button').css('display', 'none');
+    $('#pause-button').css('display', 'inline-block');
+
+    clearInterval(controller.timer);
+    $('#minutes').text('0');
+    $('#seconds').text('00');
+    controller.startTime();
   }
 
   function prevTrack() {
@@ -185,11 +214,14 @@ var controller = (function() {
     }
 
     $('#now-playing-title').text(controller.playlist[controller.playing].title);
-  }
 
-  function toggleActive() {
-    $(this).toggleClass('active');
-    $(this).siblings().toggleClass('active');
+    $('#play-button').css('display', 'none');
+    $('#pause-button').css('display', 'inline-block');
+
+    clearInterval(controller.timer);
+    $('#minutes').text('0');
+    $('#seconds').text('00');
+    controller.startTime();
   }
 
   function savePlaylist() {
@@ -208,6 +240,7 @@ var controller = (function() {
         controller.playlist.push({
           id: loaded[i].trackid,
           title: loaded[i].title,
+          duration: loaded[i].duration,
           url: loaded[i].url,
           type: loaded[i].tracktype
         });
@@ -215,16 +248,39 @@ var controller = (function() {
     });
   }
 
+  function toggleActive() {
+    $(this).toggleClass('active');
+    $(this).siblings().toggleClass('active');
+  }
+
+  function startTime() {
+    controller.timer = setInterval(function() {
+      var minutes = parseInt($('#minutes').text());
+      var seconds = parseInt($('#seconds').text()) + 1;
+      if (seconds < 10) {
+        $('#seconds').text('0' + seconds);
+      } else if (seconds == 60) {
+        $('#seconds').text('00');
+        $('#minutes').text(minutes++);
+      } else {
+        $('#seconds').text(seconds);
+      }
+    }, 1000);
+  }
+
   return {
     init: init,
-    searchYT: searchYT,
-    searchSC: searchSC,
     playlist: playlist,
     playing: playing,
     shuffle: shuffle,
+    timer: timer,
+    searchYT: searchYT,
+    searchSC: searchSC,
+    setDurationYT: setDurationYT,
     lastSearch: lastSearch,
     prevTrack: prevTrack,
     nextTrack: nextTrack,
-    updatePlaylistOrder: updatePlaylistOrder
+    updatePlaylistOrder: updatePlaylistOrder,
+    startTime: startTime
   }
 })();

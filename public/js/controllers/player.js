@@ -16,8 +16,11 @@ function onPlayerReady(e) {
     } else {
       scplayer.toggle();
     }
+
     $(this).css('display', 'none');
     $('#pause-button').css('display', 'inline-block');
+
+    controller.startTime();
   });
 
   $('#pause-button').on('click', function() {
@@ -29,6 +32,8 @@ function onPlayerReady(e) {
 
     $(this).css('display', 'none');
     $('#play-button').css('display', 'inline-block');
+    
+    clearInterval(controller.timer);
   });
 }
 

@@ -8,9 +8,12 @@ post '/save' do
 
   playlist = Playlist.create
 
+  p params
+
   params.each do |_, track|
     playlist.tracks.create(
       title: track["title"],
+      duration: track["duration"],
       url: track["url"],
       trackid: track["id"],
       tracktype: track["type"]

@@ -42,8 +42,12 @@ iframe {
 
 #now-playing {
   display: block;
-  margin-bottom: 20px;
+  margin-bottom: 0;
   font-size: 1.5em;
+}
+
+#track-time {
+  font-size: 1.25em;
 }
 
 .delete-track {
