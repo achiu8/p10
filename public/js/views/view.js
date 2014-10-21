@@ -100,6 +100,7 @@ var view = (function() {
 
   function shiftResults() {
     $('#search-panel').animate({
+      marginTop: '15px',
       marginLeft: '0'
     }, 1000, view.showPlaylist);
 
