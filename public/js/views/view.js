@@ -105,7 +105,8 @@ var view = (function() {
     }, 1000, view.showPlaylist);
 
     $('#playlist-panel').animate({
-      height: '617px'
+      height: '545px',
+      opacity: 1
     }, 1000);
   }
 

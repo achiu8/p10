@@ -16,7 +16,6 @@ Templates.results = [
   '{{#tracks}}',
     '<li class="list-group-item">',
       '<span data-url="{{url}}" data-type="{{type}}" data-duration="{{duration}}">{{title}}</span>',
-      '<button class="select-button btn btn-primary btn-xs pull-right">Select</button>',
     '</li>',
   '{{/tracks}}',
 ].join('\n');
