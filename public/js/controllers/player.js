@@ -16,6 +16,8 @@ function onPlayerReady(e) {
     } else {
       scplayer.toggle();
     }
+    $(this).css('display', 'none');
+    $('#pause-button').css('display', 'inline-block');
   });
 
   $('#pause-button').on('click', function() {
@@ -24,6 +26,9 @@ function onPlayerReady(e) {
     } else {
       scplayer.toggle();
     }
+
+    $(this).css('display', 'none');
+    $('#play-button').css('display', 'inline-block');
   });
 }
 
