@@ -5,7 +5,7 @@ Templates.startPage = [
     '<input id="query" class="form-control" type="text"/>',
     '<span class="input-group-btn">',
       '<button id="search-button" class="btn btn-success">',
-        'Search',
+        '<i class="fa fa-search"></i>',
       '</button>',
     '</span>',
   '</div>',

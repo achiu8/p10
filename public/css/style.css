@@ -27,3 +27,7 @@ iframe {
 #play-button {
   display: none;
 }
+
+#play-button, #pause-button, #prev-button, #next-button, #shuffle-button {
+  width: 38px;
+}
