@@ -75,7 +75,6 @@ var view = (function() {
   }
 
   function showPlaylist() {
-    $('#playlist-panel').html('<ul id="playlist" class="list-group"></ul>');
     $('#playlist').sortable({
       update: controller.updatePlaylistOrder,
       revert: true
@@ -104,8 +103,24 @@ var view = (function() {
       marginLeft: '0'
     }, 1000, view.showPlaylist);
 
+    $('#results').animate({
+      opacity: 1
+    }, 1000);
+
     $('#playlist-panel').animate({
-      height: '545px',
+      height: '750px',
+      opacity: 1
+    }, 1000);
+
+    $('#controls').css('display', 'block');
+
+    $('#controls').animate({
+      height: '200px',
+      opacity: 1
+    }, 1000);
+
+    $('#playlist').animate({
+      height: '508px',
       opacity: 1
     }, 1000);
   }

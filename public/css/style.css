@@ -8,7 +8,6 @@ body {
   width: 90%;
   margin-top: 100px;
   padding-bottom: 15px;
-  border: 1px solid black;
 }
 
 iframe {
@@ -25,32 +24,51 @@ iframe {
 #search-panel {
   float: left;
   width: 49%;
+  margin-top: 15px;
   margin-left: 25.5%;
   margin-right: 1%;
-  height: 545px;
+  height: 750px;
 }
 
 #playlist-panel {
   float: right;
+  margin-top: 15px;
   margin-left: 1%;
   width: 49%;
   height: 0;
   opacity: 0;
+  transition: 1s;
 }
 
 #results {
-  height: 508px;
+  height: 664px;
   overflow-y: auto;
+  opacity: 0;
+  transition: 1s;
 }
 
 #playlist {
-  height: 548px;
+  clear: both;
   overflow-y: auto;
   margin-bottom: 0;
+  opacity: 0;
+  transition: 1s;
+}
+
+#controls {
+  display: none;
+  text-align: center;
+  margin-bottom: 30px;
+  opacity: 0;
+  transition: 1s;
 }
 
 #search-form {
-  margin-bottom: 6px;
+  margin-bottom: 33px;
+}
+
+#query {
+  height: 40px;
 }
 
 #now-playing {
@@ -67,8 +85,20 @@ iframe {
   display: none;
 }
 
-#play-button, #pause-button, #prev-button, #next-button, #shuffle-button {
-  width: 38px;
+#play-button, #pause-button {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+#prev-button, #next-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+#shuffle-button, #save-playlist {
+  height: 35px;
 }
 
 .delete-track {

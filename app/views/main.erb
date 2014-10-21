@@ -31,23 +31,9 @@ type="text/javascript"></script>
 
   <body>
     <div id="container" class="container">
-      <br>
       <iframe src="https://www.youtube.com/embed/PoKZlyaDAmQ?enablejsapi=1" id="video"></iframe>
       <iframe src="https://w.soundcloud.com/player/?url=http://api.soundcloud.com/users/1539950/favorites" id="scwidget"></iframe>
-      <p id="now-playing">Now Playing | <span id="now-playing-title"></span></p>
-      <p id="track-time"><span id="minutes">0</span>:<span id="seconds">00</span></p>
-      <button id="play-button" class="btn btn-default"><i class="fa fa-play"></i></button>
-      <button id="pause-button" class="btn btn-default"><i class="fa fa-pause"></i></button>
-      <button id="prev-button" class="btn btn-default"><i class="fa fa-step-backward"></i></button>
-      <button id="next-button" class="btn btn-default"><i class="fa fa-step-forward"></i></button>
-      <button id="shuffle-button" class="btn btn-default"><i class="fa fa-random"></i></button>
-      <button id="save-playlist" class="btn btn-default">Save Playlist</button>
-      <br><br>
-      <ul id="main-nav" class="nav nav-tabs" role="tablist">
-        <li id="search-tab" class="active"><a href="#"><i class="fa fa-search"></i></a></li>
-        <li id="playlist-tab"><a href="#"><i class="fa fa-list"></i></a></li>
-      </ul>
-      <br>
+
       <div id="main">
 
         <div id="search-panel">
@@ -57,8 +43,40 @@ type="text/javascript"></script>
           <ul id="results" class="list-group"></ul>
         </div>
 
-        <div id="playlist-panel"></div>
+        <div id="playlist-panel">
+          <div id="controls">
+            <p id="now-playing">Now Playing | <span id="now-playing-title"></span></p>
+            <p id="track-time"><span id="minutes">0</span>:<span id="seconds">00</span></p>
+
+            <div id="player-controls">
+              <button id="prev-button" class="btn btn-default">
+                <i class="fa fa-step-backward"></i>
+              </button>
+              <button id="play-button" class="btn btn-default">
+                <i class="fa fa-play fa-2x"></i>
+              </button>
+              <button id="pause-button" class="btn btn-default">
+                <i class="fa fa-pause fa-2x"></i>
+              </button>
+              <button id="next-button" class="btn btn-default">
+                <i class="fa fa-step-forward"></i>
+              </button>
+            </div>
+
+            <div id="player-options">
+              <button id="shuffle-button" class="btn btn-default pull-left">
+                <i class="fa fa-random"></i>
+              </button>
+              <button id="save-playlist" class="btn btn-default pull-right">
+                <i class="fa fa-save"></i>
+              </button>
+            </div>
+          </div>
+          <ul id="playlist" class="list-group"></ul>
+        </div>
+
       </div>
+
     </div>
   </body>
 </html>
