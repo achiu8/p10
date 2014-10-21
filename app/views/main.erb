@@ -48,16 +48,20 @@ type="text/javascript"></script>
       </ul>
       <br>
       <div id="main">
-        <div class="input-group">
-          <input id="query" class="form-control" type="text"/>
-          <span class="input-group-btn">
-            <button id="search-button" class="btn btn-success">
-              <i class="fa fa-search"></i>
-            </button>
-          </span>
+
+        <div id="search-panel">
+          <div class="input-group">
+            <input id="query" class="form-control" type="text"/>
+            <span class="input-group-btn">
+              <button id="search-button" class="btn btn-success">
+                <i class="fa fa-search"></i>
+              </button>
+            </span>
+          </div>
+          <ul id="results" class="list-group"></ul>
         </div>
-        <br>
-        <ul id="results" class="list-group"></ul>
+
+        <div id="playlist-panel"></div>
       </div>
     </div>
   </body>

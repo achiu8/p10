@@ -1,7 +1,7 @@
 var view = (function() {
   function showStartPage() {
     var template = Handlebars.compile(Templates.startPage);
-    $('#main').html(template);
+    $('#search-panel').html(template);
     if (controller.lastSearch) {
       $('#query').val(controller.lastSearch);
       controller.searchYT();
@@ -65,7 +65,7 @@ var view = (function() {
   }
 
   function showPlaylist() {
-    $('#main').html('<ul id="playlist" class="list-group"></ul>');
+    $('#playlist-panel').html('<ul id="playlist" class="list-group"></ul>');
     $('#playlist').sortable({
       update: controller.updatePlaylistOrder
     });
@@ -87,6 +87,16 @@ var view = (function() {
     $('#playlist').html(output);
   }
 
+  function shiftResults() {
+    $('#search-panel').animate({
+      marginLeft: '0'
+    }, 1000, view.showPlaylist);
+
+    $('#playlist-panel').animate({
+      height: '630px'
+    }, 1000);
+  }
+
   return {
     showStartPage: showStartPage,
     ytResults: ytResults,
@@ -95,6 +105,7 @@ var view = (function() {
     processSCResults: processSCResults,
     consolidateResults: consolidateResults,
     displayResults: displayResults,
-    showPlaylist: showPlaylist
+    showPlaylist: showPlaylist,
+    shiftResults: shiftResults
   }
 })();

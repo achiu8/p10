@@ -18,16 +18,23 @@ var controller = (function() {
     $('#save-playlist').on('click', savePlaylist);
     $('#main-nav').on('click', 'li', toggleActive);
     $('#search-tab').on('click', view.showStartPage);
-    $('#playlist-tab').on('click', view.showPlaylist);
+    $('#playlist-tab').on('click', view.shiftResults);
     $('#main').on('click', 'button#search-button', searchYT);
     $('#main').on('click', 'button.select-button', addToPlaylist);
     $('#main').on('click', 'button.play-track', playTrack);
     $('#main').on('click', 'button.delete-track', deleteTrack);
 
+    $('#results').bind('mousewheel', function(e) {
+      $(this).scrollTop($(this).scrollTop() - e.originalEvent.wheelDeltaY);
+      return false;
+    });
+
     loadPlaylist();
   }
 
   function searchYT() {
+    view.shiftResults();
+
     var q = $('#query').val();
     controller.lastSearch = q;
     var request = gapi.client.youtube.search.list({
@@ -56,15 +63,27 @@ var controller = (function() {
   }
 
   function addToPlaylist() {
+    var id = controller.playlist.length;
     var title = $(this).prev('span').text();
     var url = $(this).prev('span').attr('data-url');
     var type = $(this).prev('span').attr('data-type');
     controller.playlist.push({
-      id: controller.playlist.length,
+      id: id,
       title: title,
       url: url,
       type: type
     });
+
+    var template = Handlebars.compile(Templates.playlistTrack);
+    var data = {};
+
+    data.id = id;
+    data.title = title;
+    data.url = url;
+    data.type = type;
+
+    var output = template(data);
+    $('#playlist').append(output);
   }
 
   function deleteTrack() {

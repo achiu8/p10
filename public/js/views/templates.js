@@ -31,3 +31,11 @@ Templates.playlist = [
     '</li>',
   '{{/tracks}}',
 ].join('\n');
+
+Templates.playlistTrack = [
+  '<li class="list-group-item">',
+    '<span id="{{id}}" data-url="{{url}}" data-type="{{type}}">{{title}}</span>',
+    '<button class="delete-track btn btn-danger btn-xs pull-right">Delete</button>',
+    '<button class="play-track btn btn-primary btn-xs pull-right">Play</button>',
+  '</li>',
+].join('\n');
