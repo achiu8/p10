@@ -93,7 +93,7 @@ var view = (function() {
     }, 1000, view.showPlaylist);
 
     $('#playlist-panel').animate({
-      height: '630px'
+      height: '617px'
     }, 1000);
   }
 

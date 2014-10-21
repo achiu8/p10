@@ -19,7 +19,7 @@ iframe {
   width: 49%;
   margin-left: 25.5%;
   margin-right: 1%;
-  height: 630px;
+  height: 617px;
 }
 
 #playlist-panel {
@@ -32,6 +32,11 @@ iframe {
 #results {
   margin-top: 8px;
   height: 575px;
+  overflow-y: auto;
+}
+
+#playlist {
+  height: 617px;
   overflow-y: auto;
 }
 

@@ -29,6 +29,11 @@ var controller = (function() {
       return false;
     });
 
+    $('#playlist').bind('mousewheel', function(e) {
+      $(this).scrollTop($(this).scrollTop() - e.originalEvent.wheelDeltaY);
+      return false;
+    });
+
     loadPlaylist();
   }
 
