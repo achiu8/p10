@@ -20,10 +20,14 @@ var controller = (function() {
     $('#main-nav').on('click', 'li', toggleActive);
     $('#search-tab').on('click', view.showStartPage);
     $('#playlist-tab').on('click', view.shiftResults);
-    $('#main').on('click', 'button#search-button', searchYT);
     $('#main').on('click', 'button.select-button', addToPlaylist);
     $('#main').on('click', 'button.play-track', playTrack);
     $('#main').on('click', 'button.delete-track', deleteTrack);
+
+    $('#main').on('submit', 'form#search-form', function(e) {
+      e.preventDefault();
+      searchYT();
+    });
 
     $('#results').bind('mousewheel', function(e) {
       $(this).scrollTop($(this).scrollTop() - e.originalEvent.wheelDeltaY);
@@ -261,7 +265,7 @@ var controller = (function() {
         $('#seconds').text('0' + seconds);
       } else if (seconds == 60) {
         $('#seconds').text('00');
-        $('#minutes').text(minutes++);
+        $('#minutes').text(minutes + 1);
       } else {
         $('#seconds').text(seconds);
       }

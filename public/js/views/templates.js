@@ -9,7 +9,6 @@ Templates.startPage = [
       '</button>',
     '</span>',
   '</div>',
-  '<br>',
   '<ul id="results" class="list-group"></ul>'
 ].join('\n');
 
