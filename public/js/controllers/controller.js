@@ -1,6 +1,8 @@
 var controller = (function() {
   var playlist = [];
   var playing = null;
+  var shuffle = 'off';
+  var lastSearch = null;
 
   function init() {
     gapi.client.setApiKey('AIzaSyC5E8n9OrqLgRyoSpfrSdC7VROJiIzeZ2M');
@@ -12,6 +14,7 @@ var controller = (function() {
 
     $('#prev-button').on('click', prevTrack);
     $('#next-button').on('click', nextTrack);
+    $('#shuffle-button').on('click', toggleShuffle);
     $('#save-playlist').on('click', savePlaylist);
     $('#main-nav').on('click', 'li', toggleActive);
     $('#search-tab').on('click', view.showStartPage);
@@ -26,6 +29,7 @@ var controller = (function() {
 
   function searchYT() {
     var q = $('#query').val();
+    controller.lastSearch = q;
     var request = gapi.client.youtube.search.list({
       q: q,
       part: 'snippet',
@@ -90,6 +94,17 @@ var controller = (function() {
     view.showPlaylist();
   }
 
+  function toggleShuffle() {
+    $(this).toggleClass('btn-default');
+    if (controller.shuffle == 'off') {
+      $(this).css('color', 'white');
+      controller.shuffle = 'on';
+    } else {
+      $(this).css('color', 'black');
+      controller.shuffle = 'off';
+    }
+  }
+
   function playTrack() {
     var type = $(this).siblings('span').attr('data-type');
     var trackid = $(this).siblings('span').attr('data-url');
@@ -118,10 +133,14 @@ var controller = (function() {
   }
 
   function nextTrack() {
-    if (controller.playing == controller.playlist.length - 1) {
-      controller.playing = 0;
+    if (controller.shuffle == 'off') {
+      if (controller.playing == controller.playlist.length - 1) {
+        controller.playing = 0;
+      } else {
+        controller.playing++;
+      }
     } else {
-      controller.playing++;
+      controller.playing = Math.floor((Math.random() * controller.playlist.length));
     }
 
     changeTrack();
@@ -174,9 +193,12 @@ var controller = (function() {
 
   return {
     init: init,
+    searchYT: searchYT,
     searchSC: searchSC,
     playlist: playlist,
     playing: playing,
+    shuffle: shuffle,
+    lastSearch: lastSearch,
     prevTrack: prevTrack,
     nextTrack: nextTrack,
     updatePlaylistOrder: updatePlaylistOrder

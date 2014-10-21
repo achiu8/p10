@@ -2,6 +2,8 @@ var view = (function() {
   function showStartPage() {
     var template = Handlebars.compile(Templates.startPage);
     $('#main').html(template);
+    $('#query').val(controller.lastSearch);
+    controller.searchYT();
   }
   
   var ytResults = [];
