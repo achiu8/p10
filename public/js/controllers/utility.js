@@ -42,6 +42,7 @@ var utility = {
     }
 
     view.showPlaylist();
+    view.changeNowPlaying();
   },
 
   savePlaylist: function() {

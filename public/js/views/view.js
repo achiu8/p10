@@ -57,6 +57,18 @@ var view = (function() {
     $('#playlist').html(output);
   }
 
+  function changeNowPlaying() {
+    var nowPlaying = $('#playlist li:nth-child(' + (parseInt(controller.playing) + 1) + ')');
+    $(nowPlaying).css({
+      color: 'white',
+      backgroundColor: '#ccc'
+    });
+    $(nowPlaying).siblings().css({
+      color: 'black',
+      backgroundColor: '#fff'
+    });
+  }
+
   function shiftResults() {
     $('#search-panel').animate({
       marginTop: '15px',
@@ -118,6 +130,7 @@ var view = (function() {
     showStartPage: showStartPage,
     displayResults: displayResults,
     showPlaylist: showPlaylist,
+    changeNowPlaying: changeNowPlaying,
     shiftResults: shiftResults,
     drawProgress: drawProgress
   }

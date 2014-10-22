@@ -102,6 +102,7 @@ var controller = (function() {
 
     controller.playing = parseInt($(this).siblings('span').attr('id'));
     $('#now-playing-title').text(controller.playlist[controller.playing].title);
+    view.changeNowPlaying();
 
     $('#play-button').css('display', 'none');
     $('#pause-button').css('display', 'inline-block');
@@ -152,6 +153,7 @@ var controller = (function() {
     }
 
     $('#now-playing-title').text(controller.playlist[controller.playing].title);
+    view.changeNowPlaying();
 
     $('#play-button').css('display', 'none');
     $('#pause-button').css('display', 'inline-block');
