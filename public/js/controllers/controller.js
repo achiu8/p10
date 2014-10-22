@@ -74,7 +74,7 @@ var controller = (function() {
   }
 
   function deleteTrack() {
-    $(this).parent().remove();
+    $(this).parent().parent().remove();
     utility.updatePlaylistOrder();
   }
 
@@ -90,8 +90,8 @@ var controller = (function() {
   }
 
   function playTrack() {
-    var type = $(this).siblings('span').attr('data-type');
-    var trackid = $(this).siblings('span').attr('data-url');
+    var type = $(this).parent().siblings('span').attr('data-type');
+    var trackid = $(this).parent().siblings('span').attr('data-url');
 
     if (type == 'yt') {
       scplayer.pause();
@@ -102,7 +102,7 @@ var controller = (function() {
       scplayer.load(base + trackid, { auto_play: true });
     }
 
-    controller.playing = parseInt($(this).siblings('span').attr('id'));
+    controller.playing = parseInt($(this).parent().siblings('span').attr('id'));
     $('#now-playing-title').text(controller.playlist[controller.playing].title);
     view.changeNowPlaying();
 
