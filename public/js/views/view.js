@@ -2,9 +2,9 @@ var view = (function() {
   function showStartPage() {
     var template = Handlebars.compile(Templates.startPage);
     $('#search-panel').html(template);
-    if (controller.lastSearch) {
-      $('#query').val(controller.lastSearch);
-      controller.searchYT();
+    if (search.lastSearch) {
+      $('#query').val(search.lastSearch);
+      search.searchYT();
     }
   }
   
@@ -23,7 +23,7 @@ var view = (function() {
       });
     }
 
-    controller.searchSC();
+    search.searchSC();
   }
 
   function processSCResults(results) {
@@ -128,6 +128,52 @@ var view = (function() {
     }, 1000);
   }
 
+  function startTime() {
+    controller.timer = setInterval(function() {
+      var minutes = parseInt($('#minutes').text());
+      var seconds = parseInt($('#seconds').text()) + 1;
+
+      if (seconds < 10) {
+        $('#seconds').text('0' + seconds);
+      } else if (seconds == 60) {
+        $('#seconds').text('00');
+        $('#minutes').text(minutes + 1);
+      } else {
+        $('#seconds').text(seconds);
+      }
+
+      var currentProgress = minutes * 60 + seconds;
+      view.drawProgress(currentProgress);
+    }, 1000);
+  }
+
+  function drawProgress(currentProgress) {
+    var totalDuration = controller.playlist[controller.playing].duration;
+    var progress = currentProgress / totalDuration;
+
+    var start = 1.5 * Math.PI;
+    var end = (1.5 + progress * 2) * Math.PI;
+
+    var c = document.getElementById('main-button-canvas');
+    var ctx = c.getContext('2d');
+    
+    if (currentProgress == 0) {
+      ctx.clearRect(0, 0, 108, 108);
+    }
+
+    ctx.beginPath();
+    ctx.arc(54, 54, 50, start, end);
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#009999';
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(54, 54, 52.5, start, end);
+    ctx.lineWidth = 0.5;
+    ctx.strokeStyle = 'white';
+    ctx.stroke();
+  }
+
   return {
     showStartPage: showStartPage,
     ytResults: ytResults,
@@ -137,6 +183,8 @@ var view = (function() {
     consolidateResults: consolidateResults,
     displayResults: displayResults,
     showPlaylist: showPlaylist,
-    shiftResults: shiftResults
+    shiftResults: shiftResults,
+    startTime: startTime,
+    drawProgress: drawProgress
   }
 })();

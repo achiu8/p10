@@ -2,7 +2,6 @@ var controller = (function() {
   var playlist = [];
   var playing = null;
   var shuffle = 'off';
-  var lastSearch = null;
   var timer;
 
   function init() {
@@ -26,7 +25,7 @@ var controller = (function() {
 
     $('#main').on('submit', 'form#search-form', function(e) {
       e.preventDefault();
-      searchYT();
+      search.searchYT();
     });
 
     $('#results').bind('mousewheel', function(e) {
@@ -42,30 +41,6 @@ var controller = (function() {
     loadPlaylist();
   }
 
-  function searchYT() {
-    view.shiftResults();
-
-    var q = $('#query').val();
-    controller.lastSearch = q;
-    var request = gapi.client.youtube.search.list({
-      q: q,
-      part: 'snippet',
-      maxResults: 10,
-      type: 'video',
-      fields: 'items(id,snippet(title))'
-    });
-
-    request.execute(function(response) {
-      view.processYTResults(response.items);
-    });
-  }
-
-  function searchSC() {
-    var q = $('#query').val();
-    SC.get('/tracks', { q: q, limit: 10 }, function(results) {
-      view.processSCResults(results);
-    });
-  }
 
   function addToPlaylist() {
     var id = controller.playlist.length;
@@ -181,8 +156,8 @@ var controller = (function() {
     clearInterval(controller.timer);
     $('#minutes').text('0');
     $('#seconds').text('00');
-    controller.drawProgress(0);
-    controller.startTime();
+    view.drawProgress(0);
+    view.startTime();
   }
 
   function prevTrack() {
@@ -231,8 +206,8 @@ var controller = (function() {
     clearInterval(controller.timer);
     $('#minutes').text('0');
     $('#seconds').text('00');
-    controller.drawProgress(0);
-    controller.startTime();
+    view.drawProgress(0);
+    view.startTime();
   }
 
   function savePlaylist() {
@@ -264,67 +239,15 @@ var controller = (function() {
     $(this).siblings().toggleClass('active');
   }
 
-  function startTime() {
-    controller.timer = setInterval(function() {
-      var minutes = parseInt($('#minutes').text());
-      var seconds = parseInt($('#seconds').text()) + 1;
-
-      if (seconds < 10) {
-        $('#seconds').text('0' + seconds);
-      } else if (seconds == 60) {
-        $('#seconds').text('00');
-        $('#minutes').text(minutes + 1);
-      } else {
-        $('#seconds').text(seconds);
-      }
-
-      var currentProgress = minutes * 60 + seconds;
-      controller.drawProgress(currentProgress);
-    }, 1000);
-  }
-
-  function drawProgress(currentProgress) {
-    var totalDuration = controller.playlist[controller.playing].duration;
-    var progress = currentProgress / totalDuration;
-    console.log(progress);
-
-    var start = 1.5 * Math.PI;
-    var end = (1.5 + progress * 2) * Math.PI;
-
-    var c = document.getElementById('main-button-canvas');
-    var ctx = c.getContext('2d');
-    
-    if (currentProgress == 0) {
-      ctx.clearRect(0, 0, 108, 108);
-    }
-
-    ctx.beginPath();
-    ctx.arc(54, 54, 50, start, end);
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = '#009999';
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.arc(54, 54, 52.5, start, end);
-    ctx.lineWidth = 0.5;
-    ctx.strokeStyle = 'white';
-    ctx.stroke();
-  }
-
   return {
     init: init,
     playlist: playlist,
     playing: playing,
     shuffle: shuffle,
     timer: timer,
-    searchYT: searchYT,
-    searchSC: searchSC,
     setDurationYT: setDurationYT,
-    lastSearch: lastSearch,
     prevTrack: prevTrack,
     nextTrack: nextTrack,
-    updatePlaylistOrder: updatePlaylistOrder,
-    startTime: startTime,
-    drawProgress: drawProgress
+    updatePlaylistOrder: updatePlaylistOrder
   }
 })();

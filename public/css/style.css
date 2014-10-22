@@ -110,6 +110,11 @@ iframe {
   left: 5px;
   border-radius: 50%;
   border: none;
+  transition: 0.5s;
+}
+
+#play-button:hover, #pause-button:hover, #prev-button:hover, #next-button:hover {
+  color: white;
 }
 
 #prev-button, #next-button {
@@ -117,10 +122,12 @@ iframe {
   height: 50px;
   border-radius: 50%;
   border: none;
+  transition: 0.5s;
 }
 
 #shuffle-button, #save-playlist {
   height: 35px;
+  transition: 0.5s;
 }
 
 .delete-track {
