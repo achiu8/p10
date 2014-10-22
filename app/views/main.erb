@@ -38,17 +38,10 @@ type="text/javascript"></script>
 
       <div id="main">
 
-        <div id="search-panel">
-          <form id="search-form" class="form-group">
-            <input id="query" class="form-control" type="text" placeholder="Search..."/>
-          </form>
-          <ul id="results" class="list-group"></ul>
-        </div>
-
         <div id="playlist-panel">
           <div id="controls">
-            <p id="now-playing">Now Playing | <span id="now-playing-title"></span></p>
-            <p id="track-time"><span id="minutes">0</span>:<span id="seconds">00</span></p>
+            <div id="now-playing">Now Playing | <span id="now-playing-title"></span></div>
+            <div id="track-time"><span id="minutes">0</span>:<span id="seconds">00</span></div>
 
             <div id="player-controls">
               <button id="prev-button" class="btn btn-default">
@@ -78,6 +71,13 @@ type="text/javascript"></script>
             </div>
           </div>
           <ul id="playlist" class="list-group"></ul>
+        </div>
+
+        <div id="search-panel">
+          <form id="search-form" class="form-group">
+            <input id="query" class="form-control" type="text" placeholder="Search..."/>
+          </form>
+          <ul id="results" class="list-group"></ul>
         </div>
 
       </div>

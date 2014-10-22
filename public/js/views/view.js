@@ -72,7 +72,8 @@ var view = (function() {
   function shiftResults() {
     $('#search-panel').animate({
       marginTop: '15px',
-      marginLeft: '0',
+      marginLeft: '3%',
+      marginRight: '3%',
       height: '750px'
     }, 1000, view.showPlaylist);
 
