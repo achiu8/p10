@@ -1,2 +1,2 @@
-ENV['G_KEY'] = '918356098481-v28r4pio8ddnrhrif72nc57vi93cv907.apps.googleusercontent.com'
-ENV['G_SECRET'] = 'oe0hUTnu6qWZt07DB04Ktzvo'
+ENV['G_KEY'] = '918356098481-mdjftudosh7rm4lhq4oq0o0mi333ud18.apps.googleusercontent.com'
+ENV['G_SECRET'] = 'eH-O0HjF6lWEgLCgmfgwXINr'

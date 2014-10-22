@@ -1,5 +1,9 @@
 get '/' do
-  erb :main
+  if session[:user_email] && session[:user_token]
+    erb :main
+  else
+    erb :login
+  end
 end
 
 post '/save' do
@@ -20,7 +24,10 @@ post '/save' do
 end
 
 get '/load' do
-  playlist = Playlist.first
+  user = User.find_or_create_by(email: session[:user_email])
+  user.token = session[:user_token]
+
+  playlist = Playlist.find_or_create_by(user_id: user.id)
 
   if playlist
     return Playlist.first.tracks.to_json(:except => [:id, :created_at, :updated_at])

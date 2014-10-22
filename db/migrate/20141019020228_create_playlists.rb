@@ -1,6 +1,7 @@
 class CreatePlaylists < ActiveRecord::Migration
   def change
     create_table :playlists do |t|
+      t.references :user
       t.timestamps
     end
   end

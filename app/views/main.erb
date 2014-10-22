@@ -1,88 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-      <meta charset="utf8">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
-    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:300">
-    
+<div id="container" class="container">
+  <iframe src="https://www.youtube.com/embed/PoKZlyaDAmQ?enablejsapi=1" id="video"></iframe>
+  <iframe src="https://w.soundcloud.com/player/?url=http://api.soundcloud.com/users/1539950/favorites" id="scwidget"></iframe>
 
-    <script src="https://apis.google.com/js/client.js?onload=init"
-type="text/javascript"></script>
-    <script src="//connect.soundcloud.com/sdk.js"></script>
-    <script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+  <div id="main">
 
-    <script src="js/vendor/handlebars-v2.0.0.js"></script>
-    <script src="js/vendor/swfobject.js" type="text/javascript"></script>
+    <div id="playlist-panel">
+      <div id="controls">
+        <div id="now-playing">Now Playing | <span id="now-playing-title"></span></div>
+        <div id="track-time"><span id="minutes">0</span>:<span id="seconds">00</span></div>
 
-    <script src="js/app.js" type="text/javascript"></script>
-    <script src="js/views/view.js" type="text/javascript"></script>
-    <script src="js/views/templates.js" type="text/javascript"></script>
-    <script src="js/controllers/controller.js" type="text/javascript"></script>
-    <script src="js/controllers/search.js" type="text/javascript"></script>
-    <script src="js/controllers/utility.js" type="text/javascript"></script>
-    <script src="js/controllers/player.js" type="text/javascript"></script>
-
-    <title></title>
-  </head>
-
-  <body>
-    <div id="container" class="container">
-      <iframe src="https://www.youtube.com/embed/PoKZlyaDAmQ?enablejsapi=1" id="video"></iframe>
-      <iframe src="https://w.soundcloud.com/player/?url=http://api.soundcloud.com/users/1539950/favorites" id="scwidget"></iframe>
-
-      <div id="main">
-
-        <div id="playlist-panel">
-          <div id="controls">
-            <div id="now-playing">Now Playing | <span id="now-playing-title"></span></div>
-            <div id="track-time"><span id="minutes">0</span>:<span id="seconds">00</span></div>
-
-            <div id="player-controls">
-              <button id="prev-button" class="btn btn-default">
-                <i class="fa fa-step-backward"></i>
-              </button>
-              <div id="main-buttons">
-                <button id="play-button" class="btn btn-default">
-                  <i class="fa fa-play fa-2x"></i>
-                </button>
-                <button id="pause-button" class="btn btn-default">
-                  <i class="fa fa-pause fa-2x"></i>
-                </button>
-                <canvas id="main-button-canvas" width="108" height="108"></canvas>
-              </div>
-              <button id="next-button" class="btn btn-default">
-                <i class="fa fa-step-forward"></i>
-              </button>
-            </div>
-
-            <div id="player-options">
-              <button id="shuffle-button" class="btn btn-default pull-left">
-                <i class="fa fa-random"></i>
-              </button>
-              <button id="save-playlist" class="btn btn-default pull-right">
-                <i class="fa fa-save"></i>
-              </button>
-            </div>
+        <div id="player-controls">
+          <button id="prev-button" class="btn btn-default">
+            <i class="fa fa-step-backward"></i>
+          </button>
+          <div id="main-buttons">
+            <button id="play-button" class="btn btn-default">
+              <i class="fa fa-play fa-2x"></i>
+            </button>
+            <button id="pause-button" class="btn btn-default">
+              <i class="fa fa-pause fa-2x"></i>
+            </button>
+            <canvas id="main-button-canvas" width="108" height="108"></canvas>
           </div>
-          <ul id="playlist" class="list-group"></ul>
+          <button id="next-button" class="btn btn-default">
+            <i class="fa fa-step-forward"></i>
+          </button>
         </div>
 
-        <div id="search-panel">
-          <form id="search-form" class="form-group">
-            <input id="query" class="form-control" type="text" placeholder="Search..."/>
-          </form>
-          <ul id="results" class="list-group"></ul>
+        <div id="player-options">
+          <button id="shuffle-button" class="btn btn-default pull-left">
+            <i class="fa fa-random"></i>
+          </button>
+          <button id="save-playlist" class="btn btn-default pull-right">
+            <i class="fa fa-save"></i>
+          </button>
         </div>
-
       </div>
-
+      <ul id="playlist" class="list-group"></ul>
     </div>
-  </body>
-</html>
+
+    <div id="search-panel">
+      <form id="search-form" class="form-group">
+        <input id="query" class="form-control" type="text" placeholder="Search..."/>
+      </form>
+      <ul id="results" class="list-group"></ul>
+    </div>
+
+  </div>
+
+</div>
 

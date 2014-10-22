@@ -19,6 +19,8 @@ gem 'shotgun'
 gem 'bcrypt'
 gem 'oauth2'
 
+gem 'httparty'
+
 group :test do
   gem 'shoulda-matchers'
   gem 'rack-test'

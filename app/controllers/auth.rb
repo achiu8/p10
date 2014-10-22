@@ -9,7 +9,7 @@ end
 get '/google_auth' do
   redirect g_client.auth_code.authorize_url(
     :redirect_uri => google_redirect_uri,
-    :scope => "profile"
+    :scope => "https://www.googleapis.com/auth/userinfo.email"
   )
 end
 
@@ -18,7 +18,13 @@ get '/google_auth_callback' do
     params[:code],
     :redirect_uri => google_redirect_uri
   )
-  params[:code]
+
+  session[:user_token] = g_access_token.token
+  session[:user_email] = g_access_token.get(
+    "https://www.googleapis.com/userinfo/email"
+  ).parsed["email"]
+
+  redirect '/'
 end
 
 def google_redirect_uri
