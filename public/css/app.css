@@ -23,6 +23,8 @@ button:focus {
 
 .list-group-item {
   height: 40px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .list-group-item:first-child, .list-group-item:last-child {
@@ -169,6 +171,13 @@ button:focus {
 
 #save-playlist:hover .fa-save {
   color: white;
+}
+
+.track-buttons {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
 }
 
 .play-track, .delete-track {
