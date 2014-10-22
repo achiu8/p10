@@ -20,7 +20,7 @@ function onPlayerReady(e) {
     $(this).css('display', 'none');
     $('#pause-button').css('display', 'inline-block');
 
-    controller.startTime();
+    utility.startTime();
   });
 
   $('#pause-button').on('click', function() {
@@ -33,7 +33,7 @@ function onPlayerReady(e) {
     $(this).css('display', 'none');
     $('#play-button').css('display', 'inline-block');
     
-    clearInterval(controller.timer);
+    clearInterval(utility.timer);
   });
 }
 

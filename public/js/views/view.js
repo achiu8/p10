@@ -8,47 +8,6 @@ var view = (function() {
     }
   }
   
-  var ytResults = [];
-  var scResults = [];
-  var allResults = [];
-
-  function processYTResults(results) {
-    ytResults = [];
-    for (var i = 0; i < results.length; i++) {
-      ytResults.push({
-        title: results[i].snippet.title,
-        duration: null,
-        url: results[i].id.videoId,
-        type: "yt"
-      });
-    }
-
-    search.searchSC();
-  }
-
-  function processSCResults(results) {
-    scResults = [];
-    for (var i = 0; i < results.length; i++) {
-      scResults.push({
-        title: results[i].title,
-        duration: Math.floor(results[i].duration / 1000),
-        url: results[i].id,
-        type: "sc"
-      });
-    }
-
-    consolidateResults();
-  }
-
-  function consolidateResults() {
-    allResults = [];
-    for (var i = 0; i < ytResults.length; i++) {
-      allResults.push(ytResults[i]);
-      allResults.push(scResults[i]);
-    }
-
-    displayResults(allResults);
-  }
 
   function displayResults(results) {
     var template = Handlebars.compile(Templates.results);
@@ -76,7 +35,7 @@ var view = (function() {
 
   function showPlaylist() {
     $('#playlist').sortable({
-      update: controller.updatePlaylistOrder,
+      update: utility.updatePlaylistOrder,
       revert: true
     });
 
@@ -128,25 +87,6 @@ var view = (function() {
     }, 1000);
   }
 
-  function startTime() {
-    controller.timer = setInterval(function() {
-      var minutes = parseInt($('#minutes').text());
-      var seconds = parseInt($('#seconds').text()) + 1;
-
-      if (seconds < 10) {
-        $('#seconds').text('0' + seconds);
-      } else if (seconds == 60) {
-        $('#seconds').text('00');
-        $('#minutes').text(minutes + 1);
-      } else {
-        $('#seconds').text(seconds);
-      }
-
-      var currentProgress = minutes * 60 + seconds;
-      view.drawProgress(currentProgress);
-    }, 1000);
-  }
-
   function drawProgress(currentProgress) {
     var totalDuration = controller.playlist[controller.playing].duration;
     var progress = currentProgress / totalDuration;
@@ -176,15 +116,9 @@ var view = (function() {
 
   return {
     showStartPage: showStartPage,
-    ytResults: ytResults,
-    scResults: scResults,
-    processYTResults: processYTResults,
-    processSCResults: processSCResults,
-    consolidateResults: consolidateResults,
     displayResults: displayResults,
     showPlaylist: showPlaylist,
     shiftResults: shiftResults,
-    startTime: startTime,
     drawProgress: drawProgress
   }
 })();

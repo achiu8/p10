@@ -1,7 +1,10 @@
-var search = (function() {
-  var lastSearch = null;
+var search = {
+  lastSearch: null,
+  ytResults: [],
+  scResults: [],
+  allResults: [],
 
-  function searchYT() {
+  searchYT: function() {
     view.shiftResults();
 
     var q = $('#query').val();
@@ -15,20 +18,52 @@ var search = (function() {
     });
 
     request.execute(function(response) {
-      view.processYTResults(response.items);
+      search.processYTResults(response.items);
     });
-  }
+  },
 
-  function searchSC() {
+  searchSC: function() {
     var q = $('#query').val();
     SC.get('/tracks', { q: q, limit: 10 }, function(results) {
-      view.processSCResults(results);
+      search.processSCResults(results);
     });
-  }
+  },
 
-  return {
-    searchYT: searchYT,
-    searchSC: searchSC,
-    lastSearch: lastSearch
+  processYTResults: function(results) {
+    search.ytResults = [];
+    for (var i = 0; i < results.length; i++) {
+      search.ytResults.push({
+        title: results[i].snippet.title,
+        duration: null,
+        url: results[i].id.videoId,
+        type: "yt"
+      });
+    }
+
+    search.searchSC();
+  },
+
+  processSCResults: function(results) {
+    search.scResults = [];
+    for (var i = 0; i < results.length; i++) {
+      search.scResults.push({
+        title: results[i].title,
+        duration: Math.floor(results[i].duration / 1000),
+        url: results[i].id,
+        type: "sc"
+      });
+    }
+
+    search.consolidateResults();
+  },
+
+  consolidateResults: function() {
+    search.allResults = [];
+    for (var i = 0; i < search.ytResults.length; i++) {
+      search.allResults.push(search.ytResults[i]);
+      search.allResults.push(search.scResults[i]);
+    }
+
+    view.displayResults(search.allResults);
   }
-})();
+};

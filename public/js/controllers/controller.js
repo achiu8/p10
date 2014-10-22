@@ -2,7 +2,6 @@ var controller = (function() {
   var playlist = [];
   var playing = null;
   var shuffle = 'off';
-  var timer;
 
   function init() {
     gapi.client.setApiKey('AIzaSyC5E8n9OrqLgRyoSpfrSdC7VROJiIzeZ2M');
@@ -15,8 +14,7 @@ var controller = (function() {
     $('#prev-button').on('click', prevTrack);
     $('#next-button').on('click', nextTrack);
     $('#shuffle-button').on('click', toggleShuffle);
-    $('#save-playlist').on('click', savePlaylist);
-    $('#main-nav').on('click', 'li', toggleActive);
+    $('#save-playlist').on('click', utility.savePlaylist);
     $('#search-tab').on('click', view.showStartPage);
     $('#playlist-tab').on('click', view.shiftResults);
     $('#main').on('click', 'button.select-button', addToPlaylist);
@@ -38,9 +36,8 @@ var controller = (function() {
       return false;
     });
 
-    loadPlaylist();
+    utility.loadPlaylist();
   }
-
 
   function addToPlaylist() {
     var id = controller.playlist.length;
@@ -48,7 +45,6 @@ var controller = (function() {
     var duration = $(this).prev('span').attr('data-duration');
     var url = $(this).prev('span').attr('data-url');
     var type = $(this).prev('span').attr('data-type');
-
 
     controller.playlist.push({
       id: id,
@@ -59,7 +55,7 @@ var controller = (function() {
     });
 
     if (type == 'yt') {
-      controller.setDurationYT(url, id);
+      utility.setDurationYT(url, id);
     }
 
     var template = Handlebars.compile(Templates.playlistTrack);
@@ -75,52 +71,9 @@ var controller = (function() {
     $('#playlist').append(output);
   }
 
-  function setDurationYT(url, id) {
-    var request = gapi.client.youtube.videos.list({
-      id: url,
-      part: 'contentDetails',
-      fields: 'items(contentDetails)'
-    });
-
-    request.execute(function(response) {
-      var raw_duration = response.items[0].contentDetails.duration;
-      var dur_arr = raw_duration.replace(/[A-Z]/g, ' ').trim().split(' ');
-      var duration = parseInt(dur_arr[0]) * 60 + parseInt(dur_arr[1]);
-      controller.playlist[id].duration = duration;
-    });
-  }
-
   function deleteTrack() {
     $(this).parent().remove();
-    controller.updatePlaylistOrder();
-  }
-
-  function updatePlaylistOrder() {
-    controller.playlist = [];
-
-    for (var i = 0; i < $('#playlist').children().length; i++) {
-      var track = $($('#playlist').children()[i]).find('span');
-      var id = controller.playlist.length;
-      $(track).attr('id', id);
-
-      controller.playlist.push({
-        id: id,
-        title: $(track).text(),
-        duration: parseInt($(track).attr('data-duration')),
-        url: $(track).attr('data-url'),
-        type: $(track).attr('data-type')
-      });
-
-      if ($('#now-playing-title').text() == $(track).text()) {
-        controller.playing = $(track).attr('id');
-      }
-
-      if (isNaN(controller.playlist[id].duration)) {
-        controller.setDurationYT(controller.playlist[id].url, id);
-      }
-    }
-
-    view.showPlaylist();
+    utility.updatePlaylistOrder();
   }
 
   function toggleShuffle() {
@@ -153,11 +106,11 @@ var controller = (function() {
     $('#play-button').css('display', 'none');
     $('#pause-button').css('display', 'inline-block');
 
-    clearInterval(controller.timer);
+    clearInterval(utility.timer);
     $('#minutes').text('0');
     $('#seconds').text('00');
     view.drawProgress(0);
-    view.startTime();
+    utility.startTime();
   }
 
   function prevTrack() {
@@ -203,40 +156,11 @@ var controller = (function() {
     $('#play-button').css('display', 'none');
     $('#pause-button').css('display', 'inline-block');
 
-    clearInterval(controller.timer);
+    clearInterval(utility.timer);
     $('#minutes').text('0');
     $('#seconds').text('00');
     view.drawProgress(0);
-    view.startTime();
-  }
-
-  function savePlaylist() {
-    var data = {};
-    for (var i = 0; i < controller.playlist.length; i++) {
-      data[i] = controller.playlist[i];
-    }
-
-    $.post('/save', data);
-  }
-
-  function loadPlaylist() {
-    $.get('/load').done(function(response) {
-      var loaded = $.parseJSON(response);
-      for (var i = 0; i < loaded.length; i++) {
-        controller.playlist.push({
-          id: loaded[i].trackid,
-          title: loaded[i].title,
-          duration: loaded[i].duration,
-          url: loaded[i].url,
-          type: loaded[i].tracktype
-        });
-      }
-    });
-  }
-
-  function toggleActive() {
-    $(this).toggleClass('active');
-    $(this).siblings().toggleClass('active');
+    utility.startTime();
   }
 
   return {
@@ -244,10 +168,7 @@ var controller = (function() {
     playlist: playlist,
     playing: playing,
     shuffle: shuffle,
-    timer: timer,
-    setDurationYT: setDurationYT,
     prevTrack: prevTrack,
-    nextTrack: nextTrack,
-    updatePlaylistOrder: updatePlaylistOrder
+    nextTrack: nextTrack
   }
 })();
