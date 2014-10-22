@@ -11,6 +11,8 @@ var controller = (function() {
       client_id: '34bf73c0f03752169bc7f0b45a2d6b5b'
     });
 
+    $(document).on('mouseup', 'button', function() { $(this).blur(); });
+
     $('#prev-button').on('click', prevTrack);
     $('#next-button').on('click', nextTrack);
     $('#shuffle-button').on('click', toggleShuffle);
