@@ -101,10 +101,12 @@ var view = (function() {
   function shiftResults() {
     $('#search-panel').animate({
       marginTop: '15px',
-      marginLeft: '0'
+      marginLeft: '0',
+      height: '750px'
     }, 1000, view.showPlaylist);
 
     $('#results').animate({
+      height: '664px',
       opacity: 1
     }, 1000);
 

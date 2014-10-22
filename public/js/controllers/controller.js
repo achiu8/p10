@@ -181,6 +181,7 @@ var controller = (function() {
     clearInterval(controller.timer);
     $('#minutes').text('0');
     $('#seconds').text('00');
+    controller.drawProgress(0);
     controller.startTime();
   }
 
@@ -230,6 +231,7 @@ var controller = (function() {
     clearInterval(controller.timer);
     $('#minutes').text('0');
     $('#seconds').text('00');
+    controller.drawProgress(0);
     controller.startTime();
   }
 
@@ -266,6 +268,7 @@ var controller = (function() {
     controller.timer = setInterval(function() {
       var minutes = parseInt($('#minutes').text());
       var seconds = parseInt($('#seconds').text()) + 1;
+
       if (seconds < 10) {
         $('#seconds').text('0' + seconds);
       } else if (seconds == 60) {
@@ -274,7 +277,38 @@ var controller = (function() {
       } else {
         $('#seconds').text(seconds);
       }
+
+      var currentProgress = minutes * 60 + seconds;
+      controller.drawProgress(currentProgress);
     }, 1000);
+  }
+
+  function drawProgress(currentProgress) {
+    var totalDuration = controller.playlist[controller.playing].duration;
+    var progress = currentProgress / totalDuration;
+    console.log(progress);
+
+    var start = 1.5 * Math.PI;
+    var end = (1.5 + progress * 2) * Math.PI;
+
+    var c = document.getElementById('main-button-canvas');
+    var ctx = c.getContext('2d');
+    
+    if (currentProgress == 0) {
+      ctx.clearRect(0, 0, 108, 108);
+    }
+
+    ctx.beginPath();
+    ctx.arc(54, 54, 50, start, end);
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#009999';
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(54, 54, 52.5, start, end);
+    ctx.lineWidth = 0.5;
+    ctx.strokeStyle = 'white';
+    ctx.stroke();
   }
 
   return {
@@ -290,6 +324,7 @@ var controller = (function() {
     prevTrack: prevTrack,
     nextTrack: nextTrack,
     updatePlaylistOrder: updatePlaylistOrder,
-    startTime: startTime
+    startTime: startTime,
+    drawProgress: drawProgress
   }
 })();
