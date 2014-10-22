@@ -25,6 +25,10 @@ button:focus {
   height: 40px;
 }
 
+.list-group-item:first-child, .list-group-item:last-child {
+  border-radius: 0 !important;
+}
+
 #playlist li:hover button {
   opacity: 1;
 }
@@ -139,6 +143,7 @@ button:focus {
 #shuffle-button, #save-playlist {
   height: 35px;
   transition: 0.5s;
+  border-radius: 0;
 }
 
 #shuffle-button:hover, #save-playlist:hover {
@@ -159,6 +164,7 @@ button:focus {
 
 .play-track, .delete-track {
   opacity: 0;
+  border-radius: 0 !important;
 }
 
 .play-track {
