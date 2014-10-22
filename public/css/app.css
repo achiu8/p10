@@ -55,14 +55,23 @@ button:focus {
 }
 
 #results {
-  overflow-y: auto;
+  overflow-y: hidden;
   opacity: 0;
   transition: 1s;
 }
 
+#results .list-group-item {
+  transition: 0.2s;
+}
+
+#results .list-group-item:hover {
+  color: white;
+  background-color: #ccc;
+}
+
 #playlist {
   clear: both;
-  overflow-y: auto;
+  overflow-y: hidden;
   margin-bottom: 0;
   opacity: 0;
   transition: 1s;

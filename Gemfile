@@ -17,6 +17,7 @@ gem 'rake'
 
 gem 'shotgun'
 gem 'bcrypt'
+gem 'oauth2'
 
 group :test do
   gem 'shoulda-matchers'
