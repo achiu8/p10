@@ -90,7 +90,7 @@ var view = (function() {
     $('#controls').css('display', 'block');
 
     $('#controls').animate({
-      height: '200px',
+      height: '220px',
       opacity: 1
     }, 1000);
 
