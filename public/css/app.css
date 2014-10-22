@@ -80,6 +80,15 @@ button:focus {
 
 #query {
   height: 40px;
+  border-radius: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  box-shadow: none;
+}
+
+#query:focus {
+  border-color: #ccc;
 }
 
 #now-playing {
