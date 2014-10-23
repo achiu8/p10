@@ -24,10 +24,7 @@ Templates.playlist = [
   '{{#tracks}}',
     '<li class="list-group-item">',
       '<span id="{{id}}" data-url="{{url}}" data-type="{{type}}" data-duration="{{duration}}">{{title}}</span>',
-      '<div class="track-buttons pull-right">',
-        '<button class="play-track btn btn-xs"><i class="fa fa-play"></i></button>',
-        '<button class="delete-track btn btn-xs"><i class="fa fa-trash"></i></button>',
-      '</div>',
+      '<button class="delete-track btn btn-xs pull-right"><i class="fa fa-close fa-lg"></i></button>',
     '</li>',
   '{{/tracks}}',
 ].join('\n');
@@ -35,9 +32,6 @@ Templates.playlist = [
 Templates.playlistTrack = [
   '<li class="list-group-item">',
     '<span id="{{id}}" data-url="{{url}}" data-type="{{type}}" data-duration="{{duration}}">{{title}}</span>',
-    '<div class="track-buttons pull-right">',
-      '<button class="play-track btn btn-xs"><i class="fa fa-play"></i></button>',
-      '<button class="delete-track btn btn-xs"><i class="fa fa-trash"></i></button>',
-    '</div>',
+    '<button class="delete-track btn btn-xs pull-right"><i class="fa fa-close fa-lg"></i></button>',
   '</li>',
 ].join('\n');

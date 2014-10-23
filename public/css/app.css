@@ -263,7 +263,7 @@ button:focus {
   color: white;
 }
 
-.track-buttons {
+.delete-track {
   position: absolute;
   top: 50%;
   right: 15px;
@@ -298,6 +298,6 @@ button:focus {
   background-color: #d9534f;
 }
 
-.delete-track:hover .fa-trash {
+.delete-track:hover .fa-close {
   color: white;
 }

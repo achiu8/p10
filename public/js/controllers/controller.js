@@ -19,7 +19,7 @@ var controller = (function() {
     $('#shuffle-button').on('click', toggleShuffle);
     $('#save-playlist').on('click', utility.savePlaylist);
     $('#main').on('click', 'button.select-button', addToPlaylist);
-    $('#main').on('click', 'button.play-track', playTrack);
+    $('#main').on('dblclick', '#playlist .list-group-item', playTrack);
     $('#main').on('click', 'button.delete-track', deleteTrack);
 
     $('#main').on('submit', 'form#search-form', function(e) {
@@ -148,7 +148,7 @@ var controller = (function() {
   }
 
   function deleteTrack() {
-    $(this).parent().parent().remove();
+    $(this).parent().remove();
     utility.updatePlaylistOrder();
   }
 
@@ -164,8 +164,8 @@ var controller = (function() {
   }
 
   function playTrack() {
-    var type = $(this).parent().siblings('span').attr('data-type');
-    var trackid = $(this).parent().siblings('span').attr('data-url');
+    var type = $(this).find('span').attr('data-type');
+    var trackid = $(this).find('span').attr('data-url');
 
     if (type == 'yt') {
       scplayer.pause();
@@ -176,7 +176,7 @@ var controller = (function() {
       scplayer.load(base + trackid, { auto_play: true });
     }
 
-    controller.playing = parseInt($(this).parent().siblings('span').attr('id'));
+    controller.playing = parseInt($(this).find('span').attr('id'));
     $('#now-playing-title').text(controller.playlist[controller.playing].title);
     view.changeNowPlaying();
 
