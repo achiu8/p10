@@ -7,7 +7,6 @@ var view = (function() {
       search.searchYT();
     }
   }
-  
 
   function displayResults(results) {
     var template = Handlebars.compile(Templates.results);
@@ -55,6 +54,9 @@ var view = (function() {
 
     var output = template(data);
     $('#playlist').html(output);
+    $('#playlist-panel').animate({ 'opacity': 1 }, 1000);
+    $('#show-search').animate({ 'opacity': 1 }, 1000);
+    $('#click-to-search').animate({ 'opacity': 1 }, 1000);
   }
 
   function changeNowPlaying() {

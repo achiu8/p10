@@ -18,8 +18,6 @@ var controller = (function() {
     $('#next-button').on('click', nextTrack);
     $('#shuffle-button').on('click', toggleShuffle);
     $('#save-playlist').on('click', utility.savePlaylist);
-    $('#search-tab').on('click', view.showStartPage);
-    $('#playlist-tab').on('click', view.shiftResults);
     $('#main').on('click', 'button.select-button', addToPlaylist);
     $('#main').on('click', 'button.play-track', playTrack);
     $('#main').on('click', 'button.delete-track', deleteTrack);
@@ -44,6 +42,7 @@ var controller = (function() {
         marginRight: '-=100%'
       }, {
         duration: 1500,
+        easing: 'swing',
         queue: false
       });
 
@@ -51,6 +50,7 @@ var controller = (function() {
         marginLeft: '28%'
       }, {
         duration: 1500,
+        easing: 'swing',
         queue: false,
         done: function() {
           $('#show-search').css('display', 'inline');
@@ -65,15 +65,20 @@ var controller = (function() {
         marginLeft: '3%'
       }, {
         duration: 1500,
+        easing: 'swing',
         queue: false,
         done: function() {
           $('#show-search').css('display', 'none');
           $('#click-to-search').css('display', 'none');
-
-          $('#search-panel').animate({
-            marginRight: '+=100%'
-          }, { duration: 1500 });
         }
+      });
+
+      $('#search-panel').animate({
+        marginRight: '+=100%'
+      }, {
+        duration: 1500,
+        easing: 'swing',
+        queue: false
       });
     });
 
@@ -106,6 +111,8 @@ var controller = (function() {
         }
       });
     }, 1750);
+
+    utility.loadPlaylist();
   }
 
   function addToPlaylist() {

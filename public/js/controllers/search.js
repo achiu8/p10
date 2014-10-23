@@ -5,8 +5,6 @@ var search = {
   allResults: [],
 
   searchYT: function() {
-    view.shiftResults();
-
     var q = $('#query').val();
     search.lastSearch = q;
     var request = gapi.client.youtube.search.list({

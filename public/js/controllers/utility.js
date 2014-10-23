@@ -66,6 +66,8 @@ var utility = {
           type: loaded[i].tracktype
         });
       }
+
+      view.showPlaylist();
     });
   },
 
