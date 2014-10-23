@@ -28,12 +28,13 @@ button:focus {
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
+  color: #707070;
 }
 
 #login {
   font-size: 1.2em;
-  color: black;
-  border: 1px solid black;
+  color: #707070;
+  border: 1px solid #707070;
   background-color: white;
   text-decoration: none;
   text-shadow: none;
@@ -42,7 +43,22 @@ button:focus {
 
 #login:hover {
   color: white;
-  background-color: black;
+  background-color: #707070;
+}
+
+#logout {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+}
+
+.fa-sign-out {
+  color: #ccc;
+  transition: 0.5s;
+}
+
+#logout:hover .fa-sign-out {
+  color: #d9534f;
 }
 
 .list-group-item {
