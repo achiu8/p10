@@ -19,7 +19,6 @@ get '/google_auth_callback' do
     :redirect_uri => google_redirect_uri
   )
 
-  session[:user_token] = g_access_token.token
   session[:user_email] = g_access_token.get(
     "https://www.googleapis.com/userinfo/email"
   ).parsed["email"]

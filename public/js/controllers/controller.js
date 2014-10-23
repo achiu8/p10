@@ -38,7 +38,8 @@ var controller = (function() {
       return false;
     });
 
-    utility.loadPlaylist();
+    $(document).on('load', '#query', function() {
+    });
   }
 
   function addToPlaylist() {
