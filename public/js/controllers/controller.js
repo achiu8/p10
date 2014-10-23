@@ -2,6 +2,7 @@ var controller = (function() {
   var playlist = [];
   var playing = null;
   var shuffle = 'off';
+  var showSearch;
 
   function init() {
     gapi.client.setApiKey('AIzaSyC5E8n9OrqLgRyoSpfrSdC7VROJiIzeZ2M');
@@ -41,8 +42,70 @@ var controller = (function() {
     $('#main').on('click', '#hide-search', function(e) {
       $('#search-panel').animate({
         marginRight: '-=100%'
-      }, 1500);
+      }, {
+        duration: 1500,
+        queue: false
+      });
+
+      $('#playlist-panel').animate({
+        marginLeft: '28%'
+      }, {
+        duration: 1500,
+        queue: false,
+        done: function() {
+          $('#show-search').css('display', 'inline');
+          $('#click-to-search').css('display', 'block');
+        }
+      });
+
     });
+
+    $('#main').on('click', '#show-search', function(e) {
+      $('#playlist-panel').animate({
+        marginLeft: '3%'
+      }, {
+        duration: 1500,
+        queue: false,
+        done: function() {
+          $('#show-search').css('display', 'none');
+          $('#click-to-search').css('display', 'none');
+
+          $('#search-panel').animate({
+            marginRight: '+=100%'
+          }, { duration: 1500 });
+        }
+      });
+    });
+
+    setInterval(function() {
+      $('#show-search').animate({
+        right: '+=100px',
+        opacity: 0
+      }, {
+        duration: 500,
+        done: function() {
+          $('#show-search').css({
+            right: '-=100px',
+          opacity: 1
+          });
+        }
+      });
+    }, 1750);
+
+    setInterval(function() {
+      $('#hide-search').animate({
+        right: '-=100px',
+        opacity: 0
+      }, {
+        duration: 500,
+        done: function() {
+          $('#hide-search').css({
+            right: '+=100px',
+          opacity: 1
+          });
+        }
+      });
+    }, 1750);
   }
 
   function addToPlaylist() {

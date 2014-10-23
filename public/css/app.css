@@ -62,15 +62,41 @@ button:focus {
 }
 
 #main {
+  position: relative;
   overflow: hidden;
+  height: 750px;
 }
 
 #hide-search {
+  position: relative;
   text-align: center;
 }
 
 #hide-search:hover {
   cursor: pointer;
+}
+
+#show-search {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(750px / 2);
+  transform: translateY(-50%);
+  vertical-align: middle;
+}
+
+#show-search:hover {
+  cursor: pointer;
+}
+
+#click-to-search {
+  display: none;
+  position: absolute;
+  right: 15px;
+  top: calc(750px / 2 + 90px);
+  transform: translateY(-50%);
+  transform: rotate(-90deg);
+  font-size: 1.25em;
 }
 
 .list-group-item {
@@ -90,7 +116,7 @@ button:focus {
 #search-panel {
   float: right;
   width: 44%;
-  margin-top: calc(750px / 2 - 40px / 2);
+  margin-top: calc(750px / 2 - 40px / 2 - 50px);
   margin-left: 28%;
   margin-right: 28%;
 }

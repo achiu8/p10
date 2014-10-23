@@ -74,16 +74,16 @@ var view = (function() {
       marginTop: '15px',
       marginLeft: '3%',
       marginRight: '3%',
-      height: '750px'
+      height: '700px'
     }, 1000, view.showPlaylist);
 
     $('#results').animate({
-      height: '664px',
+      height: '625px',
       opacity: 1
     }, 1000);
 
     $('#playlist-panel').animate({
-      height: '750px',
+      height: '700px',
       opacity: 1
     }, 1000);
 
@@ -95,7 +95,7 @@ var view = (function() {
     }, 1000);
 
     $('#playlist').animate({
-      height: '508px',
+      height: '469px',
       opacity: 1
     }, 1000);
   }
