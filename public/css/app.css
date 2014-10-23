@@ -62,15 +62,43 @@ button:focus {
 }
 
 #main {
+  position: relative;
   overflow: hidden;
+  height: 750px;
 }
 
 #hide-search {
+  position: relative;
   text-align: center;
 }
 
 #hide-search:hover {
   cursor: pointer;
+}
+
+#show-search {
+  display: inline;
+  position: absolute;
+  right: 0;
+  top: calc(750px / 2);
+  transform: translateY(-50%);
+  vertical-align: middle;
+  opacity: 0;
+}
+
+#show-search:hover {
+  cursor: pointer;
+}
+
+#click-to-search {
+  display: block;
+  position: absolute;
+  right: 15px;
+  top: calc(750px / 2 + 90px);
+  transform: translateY(-50%);
+  transform: rotate(-90deg);
+  font-size: 1.25em;
+  opacity: 0;
 }
 
 .list-group-item {
@@ -90,25 +118,25 @@ button:focus {
 #search-panel {
   float: right;
   width: 44%;
-  margin-top: calc(750px / 2 - 40px / 2);
-  margin-left: 28%;
-  margin-right: 28%;
+  height: 700px;
+  margin-top: 15px;
+  margin-left: 3%;
+  margin-right: -97%;
 }
 
 #playlist-panel {
   float: left;
   margin-top: 15px;
-  margin-left: 3%;
+  margin-left: 28%;
   margin-right: 3%;
   width: 44%;
-  height: 0;
+  height: 700px;
   opacity: 0;
-  transition: 1s;
 }
 
 #results {
+  height: 625px;
   overflow: hidden;
-  opacity: 0;
   transition: 1s;
 }
 
@@ -119,22 +147,21 @@ button:focus {
 #results .list-group-item:hover {
   color: white;
   background-color: #ccc;
+  cursor: move;
 }
 
 #playlist {
   clear: both;
   overflow: hidden;
   margin-bottom: 0;
-  opacity: 0;
-  transition: 1s;
+  height: 469px;
 }
 
 #controls {
-  display: none;
+  display: block;
+  height: 220px;
   text-align: center;
   margin-bottom: 10px;
-  opacity: 0;
-  transition: 1s;
 }
 
 #search-form {

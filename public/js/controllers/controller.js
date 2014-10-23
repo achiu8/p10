@@ -2,6 +2,7 @@ var controller = (function() {
   var playlist = [];
   var playing = null;
   var shuffle = 'off';
+  var showSearch;
 
   function init() {
     gapi.client.setApiKey('AIzaSyC5E8n9OrqLgRyoSpfrSdC7VROJiIzeZ2M');
@@ -17,8 +18,6 @@ var controller = (function() {
     $('#next-button').on('click', nextTrack);
     $('#shuffle-button').on('click', toggleShuffle);
     $('#save-playlist').on('click', utility.savePlaylist);
-    $('#search-tab').on('click', view.showStartPage);
-    $('#playlist-tab').on('click', view.shiftResults);
     $('#main').on('click', 'button.select-button', addToPlaylist);
     $('#main').on('click', 'button.play-track', playTrack);
     $('#main').on('click', 'button.delete-track', deleteTrack);
@@ -41,8 +40,79 @@ var controller = (function() {
     $('#main').on('click', '#hide-search', function(e) {
       $('#search-panel').animate({
         marginRight: '-=100%'
-      }, 1500);
+      }, {
+        duration: 1500,
+        easing: 'swing',
+        queue: false
+      });
+
+      $('#playlist-panel').animate({
+        marginLeft: '28%'
+      }, {
+        duration: 1500,
+        easing: 'swing',
+        queue: false,
+        done: function() {
+          $('#show-search').css('display', 'inline');
+          $('#click-to-search').css('display', 'block');
+        }
+      });
+
     });
+
+    $('#main').on('click', '#show-search', function(e) {
+      $('#playlist-panel').animate({
+        marginLeft: '3%'
+      }, {
+        duration: 1500,
+        easing: 'swing',
+        queue: false,
+        done: function() {
+          $('#show-search').css('display', 'none');
+          $('#click-to-search').css('display', 'none');
+        }
+      });
+
+      $('#search-panel').animate({
+        marginRight: '+=100%'
+      }, {
+        duration: 1500,
+        easing: 'swing',
+        queue: false
+      });
+    });
+
+    setInterval(function() {
+      $('#show-search').animate({
+        right: '+=100px',
+        opacity: 0
+      }, {
+        duration: 500,
+        done: function() {
+          $('#show-search').css({
+            right: '-=100px',
+          opacity: 1
+          });
+        }
+      });
+    }, 1750);
+
+    setInterval(function() {
+      $('#hide-search').animate({
+        right: '-=100px',
+        opacity: 0
+      }, {
+        duration: 500,
+        done: function() {
+          $('#hide-search').css({
+            right: '+=100px',
+          opacity: 1
+          });
+        }
+      });
+    }, 1750);
+
+    utility.loadPlaylist();
   }
 
   function addToPlaylist() {

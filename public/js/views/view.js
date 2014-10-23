@@ -7,7 +7,6 @@ var view = (function() {
       search.searchYT();
     }
   }
-  
 
   function displayResults(results) {
     var template = Handlebars.compile(Templates.results);
@@ -55,6 +54,9 @@ var view = (function() {
 
     var output = template(data);
     $('#playlist').html(output);
+    $('#playlist-panel').animate({ 'opacity': 1 }, 1000);
+    $('#show-search').animate({ 'opacity': 1 }, 1000);
+    $('#click-to-search').animate({ 'opacity': 1 }, 1000);
   }
 
   function changeNowPlaying() {
@@ -74,16 +76,16 @@ var view = (function() {
       marginTop: '15px',
       marginLeft: '3%',
       marginRight: '3%',
-      height: '750px'
+      height: '700px'
     }, 1000, view.showPlaylist);
 
     $('#results').animate({
-      height: '664px',
+      height: '625px',
       opacity: 1
     }, 1000);
 
     $('#playlist-panel').animate({
-      height: '750px',
+      height: '700px',
       opacity: 1
     }, 1000);
 
@@ -95,7 +97,7 @@ var view = (function() {
     }, 1000);
 
     $('#playlist').animate({
-      height: '508px',
+      height: '469px',
       opacity: 1
     }, 1000);
   }
