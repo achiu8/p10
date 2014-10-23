@@ -61,6 +61,18 @@ button:focus {
   color: #d9534f;
 }
 
+#main {
+  overflow: hidden;
+}
+
+#hide-search {
+  text-align: center;
+}
+
+#hide-search:hover {
+  cursor: pointer;
+}
+
 .list-group-item {
   height: 40px;
   white-space: nowrap;
@@ -95,7 +107,7 @@ button:focus {
 }
 
 #results {
-  overflow-y: hidden;
+  overflow: hidden;
   opacity: 0;
   transition: 1s;
 }
@@ -111,7 +123,7 @@ button:focus {
 
 #playlist {
   clear: both;
-  overflow-y: hidden;
+  overflow: hidden;
   margin-bottom: 0;
   opacity: 0;
   transition: 1s;

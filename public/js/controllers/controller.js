@@ -38,7 +38,10 @@ var controller = (function() {
       return false;
     });
 
-    $(document).on('load', '#query', function() {
+    $('#main').on('click', '#hide-search', function(e) {
+      $('#search-panel').animate({
+        marginRight: '-=100%'
+      }, 1500);
     });
   }
 
